@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+spec:
+  selector:
+   matchLabels:
+     app: node-express
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: node-express
+    spec:
+      containers:
+        - name: node-express
+          image: sh4dy0011/node-express
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: node-express-configmap
+                  key: port
