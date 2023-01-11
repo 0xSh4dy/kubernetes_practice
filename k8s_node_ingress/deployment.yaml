@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+metadata:
+  name: ningress-deployment
+kind: Deployment
+spec:
+  selector:
+    matchLabels:
+      app: ningress
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ningress
+    spec:
+      containers:
+        - name: ningress
+          image: sh4dy0011/ningress
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 11111
